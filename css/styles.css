@@ -18,3 +18,7 @@ td {
     width: 15px;
     height: 15px;
 }
+
+.red-block {
+    background-color: red;
+}
