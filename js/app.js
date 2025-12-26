@@ -28,15 +28,23 @@ document.addEventListener('keydown', (event) => {
             grid.colorBlock(blockX, blockY, 'red');
             break;
 
-        // Svitlana - add cases for other arrow keys below
+        // Svitlana - add cases for other arrow keys below(complete)
         case 'ArrowRight':
         case 'd':
             console.log('Move piece right');
+             grid.colorBlock(blockX, blockY, null);
+            blockX = blockX + 1;
+            console.log(blockX);
+            grid.colorBlock(blockX, blockY, 'red');
             break;
 
         case 'ArrowDown':
         case 's':
             console.log('Move piece down');
+             grid.colorBlock(blockX, blockY, null);
+            blockY = blockY + 2;
+            console.log(blockX);
+            grid.colorBlock(blockX, blockY, 'red');
             break;
 
         case 'ArrowUp':
@@ -47,4 +55,5 @@ document.addEventListener('keydown', (event) => {
             break;
 
     }
-});
+  });
+  

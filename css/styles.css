@@ -30,3 +30,22 @@ td {
 }
 
 /* Svitlana - add three more block colors below */
+.blue-block {
+    background-image: conic-gradient(blue, darkblue, blue);
+}
+
+.gray-block {
+    background-image: conic-gradient(rgb(95, 95, 95), rgb(59, 59, 59), rgb(95, 95, 95));
+}
+
+.yellow-block {
+    background-image: conic-gradient(yellow, goldenrod, yellow);
+}
+
+.orange-block {
+    background-image: conic-gradient(rgb(255, 132, 0), rgb(211, 91, 0), rgb(255, 132, 0));
+}
+
+.purple-block {
+    background-image: conic-gradient(rgb(105, 21, 151), rgb(47, 3, 79), rgb(105, 21, 151));
+}
