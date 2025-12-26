@@ -29,7 +29,6 @@ td {
     background-image: conic-gradient(#009c0d, darkgreen, #009c0d);
 }
 
-/* Svitlana - add three more block colors below */
 .blue-block {
     background-image: conic-gradient(blue, darkblue, blue);
 }

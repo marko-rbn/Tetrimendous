@@ -1,11 +1,28 @@
 
 export default class Grid {
 
-    buildTableGrid(blocksX, blocksY) {
+    // grid dimensions
+    width = 0;
+    height = 0;
+    gridArray = []; // null | color
+
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+
+        //init grid array
+        for (let x = 0; x < this.width; x++) {
+            this.gridArray[x] = new Array(this.height).fill(null);
+        }
+
+        this.buildTableGrid();
+    }
+
+    buildTableGrid() {
         const table = document.getElementById('board-grid');
-        for (let y = 0; y < blocksY; y++) {
+        for (let y = 0; y < this.height; y++) {
             const row = document.createElement('tr');
-            for (let x = 0; x < blocksX; x++) {
+            for (let x = 0; x < this.width; x++) {
                 const cell = document.createElement('td');
                 cell.id = `cell-${x}-${y}`;
                 row.appendChild(cell);
@@ -23,6 +40,10 @@ export default class Grid {
                 cell.className = '';
             }
         }
+    }
+
+    lockShape(shape) {
+        this.gridArray[shape.originX][shape.originY] = shape.color;
     }
 
 }

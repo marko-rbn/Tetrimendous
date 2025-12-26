@@ -1,19 +1,10 @@
 import Grid from './grid.js';
-import Shape from './shape.js';
-
-let blockX = 5;
-let blockY = 0;
+import { Shape, Direction } from './shape.js';
 
 // initialize grid
-const grid = new Grid();
-const shape = new Shape();
-
-grid.buildTableGrid(12, 20);
-
-//TODO: setup drop timing
-
-// demo blocks
-grid.colorBlock(blockX, blockY, 'red')
+const grid = new Grid(12, 20);
+const shape = new Shape(grid);
+shape.addNewShape();
 
 // listen to keyboard events
 document.addEventListener('keydown', (event) => {
@@ -21,30 +12,17 @@ document.addEventListener('keydown', (event) => {
 
         case 'ArrowLeft':
         case 'a':
-            console.log('Move piece left');
-            grid.colorBlock(blockX, blockY, null);
-            blockX = blockX - 1;
-            console.log(blockX);
-            grid.colorBlock(blockX, blockY, 'red');
+            shape.move(Direction.Left);
             break;
 
-        // Svitlana - add cases for other arrow keys below(complete)
         case 'ArrowRight':
         case 'd':
-            console.log('Move piece right');
-             grid.colorBlock(blockX, blockY, null);
-            blockX = blockX + 1;
-            console.log(blockX);
-            grid.colorBlock(blockX, blockY, 'red');
+            shape.move(Direction.Right);
             break;
 
         case 'ArrowDown':
         case 's':
-            console.log('Move piece down');
-             grid.colorBlock(blockX, blockY, null);
-            blockY = blockY + 2;
-            console.log(blockX);
-            grid.colorBlock(blockX, blockY, 'red');
+            shape.move(Direction.Down);
             break;
 
         case 'ArrowUp':
@@ -52,6 +30,7 @@ document.addEventListener('keydown', (event) => {
         case ' ':
             //TODO: can't rotate one block, so implement later
             console.log('Rotate piece');
+            //shape.rotate();
             break;
 
     }
