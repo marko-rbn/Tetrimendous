@@ -19,6 +19,8 @@ td {
     height: 15px;
 }
 
+/* block colors */
+
 .red-block {
     background-image: conic-gradient(red, darkred, red);
 }
@@ -26,3 +28,5 @@ td {
 .green-block {
     background-image: conic-gradient(#009c0d, darkgreen, #009c0d);
 }
+
+/* Svitlana - add three more block colors below */

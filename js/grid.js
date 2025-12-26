@@ -13,4 +13,16 @@ export default class Grid {
             table.appendChild(row);
         }
     }
+
+    colorBlock(x, y, blockColor = null) {
+        const cell = document.getElementById(`cell-${x}-${y}`);
+        if (cell) {
+            if (blockColor) {
+                cell.classList.add(blockColor + '-block');
+            } else {
+                cell.className = '';
+            }
+        }
+    }
+
 }

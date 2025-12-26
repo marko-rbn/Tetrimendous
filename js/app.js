@@ -1,16 +1,50 @@
 import Grid from './grid.js';
+import Shape from './shape.js';
 
-export default function app() {
-    const grid = new Grid();
-    grid.buildTableGrid(12, 20);
-    document.getElementById('cell-10-5').classList.add('red-block');
-    document.getElementById('cell-10-6').classList.add('red-block');
-    document.getElementById('cell-9-5').classList.add('red-block');
-    document.getElementById('cell-9-6').classList.add('red-block');
+let blockX = 5;
+let blockY = 0;
 
-    document.getElementById('cell-1-12').classList.add('green-block');
-    document.getElementById('cell-2-12').classList.add('green-block');
-    document.getElementById('cell-1-13').classList.add('green-block');
-    document.getElementById('cell-2-13').classList.add('green-block');
+// initialize grid
+const grid = new Grid();
+const shape = new Shape();
 
-}
+grid.buildTableGrid(12, 20);
+
+//TODO: setup drop timing
+
+// demo blocks
+grid.colorBlock(blockX, blockY, 'red')
+
+// listen to keyboard events
+document.addEventListener('keydown', (event) => {
+    switch (event.key) {
+
+        case 'ArrowLeft':
+        case 'a':
+            console.log('Move piece left');
+            grid.colorBlock(blockX, blockY, null);
+            blockX = blockX - 1;
+            console.log(blockX);
+            grid.colorBlock(blockX, blockY, 'red');
+            break;
+
+        // Svitlana - add cases for other arrow keys below
+        case 'ArrowRight':
+        case 'd':
+            console.log('Move piece right');
+            break;
+
+        case 'ArrowDown':
+        case 's':
+            console.log('Move piece down');
+            break;
+
+        case 'ArrowUp':
+        case 'w':
+        case ' ':
+            //TODO: can't rotate one block, so implement later
+            console.log('Rotate piece');
+            break;
+
+    }
+});
