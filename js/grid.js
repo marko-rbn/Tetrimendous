@@ -46,4 +46,7 @@ export default class Grid {
         this.gridArray[shape.originX][shape.originY] = shape.color;
     }
 
+    isOutOfBounds(x, y) {
+        return (x < 0 || x >= this.width || y >= this.height);  // y<0 is allowed (above the grid)
+    }
 }

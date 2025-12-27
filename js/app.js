@@ -34,5 +34,4 @@ document.addEventListener('keydown', (event) => {
             break;
 
     }
-  });
-  
+});

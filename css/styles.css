@@ -1,19 +1,25 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Courier New', Courier, monospace, sans-serif;
 }
 
 h1 {
     text-align: center;
+    font-size: 34pt;
+    text-transform: uppercase;
+    color: transparent;
+    background: linear-gradient(#eee, #333);
+    background-clip: text;
 }
 
 table {
+    border: 2px solid #0b2263;
     border-collapse: collapse;
     margin: 20px auto;
 }
 
 td {
-    border: 1px solid blue;
+    border: 1px solid #e1e1ee;
     padding: 0;
     width: 15px;
     height: 15px;
