@@ -43,7 +43,11 @@ export default class Grid {
     }
 
     lockShape(shape) {
-        this.gridArray[shape.originX][shape.originY] = shape.color;
+        for (let block of shape.shapeBlocks) {
+            const absX = shape.originX + block[0];
+            const absY = shape.originY + block[1];
+            this.gridArray[absX][absY] = shape.color;
+        }
     }
 
     isOutOfBounds(x, y) {

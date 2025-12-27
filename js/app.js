@@ -28,9 +28,7 @@ document.addEventListener('keydown', (event) => {
         case 'ArrowUp':
         case 'w':
         case ' ':
-            //TODO: can't rotate one block, so implement later
-            console.log('Rotate piece');
-            //shape.rotate();
+            shape.rotate();
             break;
 
     }
