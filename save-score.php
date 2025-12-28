@@ -1,6 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
+error_log('save-score.php requested');   // track if there is abuse
+
 // Read the JSON input
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
@@ -37,6 +39,8 @@ $newEntry = [
     'level' => $level,
     'date' => $date
 ];
+
+error_log('New entry: ' . json_encode($newEntry));  // log new entry for debugging
 
 $filename = 'hi-scores.json';
 

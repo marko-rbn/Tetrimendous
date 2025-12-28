@@ -97,10 +97,7 @@ export default class Game {
     loadHighScores() {
         return fetch('hi-scores.json')
             .then(response => response.json())
-            .then(data => {
-                console.log('High Scores:', data);
-                return data;
-            })
+            .then(data => { return data; })
             .catch(error => {
                 console.error('Error loading high scores:', error);
                 return [];
@@ -130,7 +127,6 @@ export default class Game {
         
         //load scores and populate table (including player's score after sorting)
         this.loadHighScores().then(highScores => {
-            console.log('Loaded high scores:', highScores);
             //insert player's score
             const playerEntry = {
                 name: 'Current Player',
@@ -143,6 +139,12 @@ export default class Game {
             highScores.sort((a, b) => b.score - a.score);
             //capture index of playerEntry
             let playerIndex = highScores.findIndex(entry => entry === playerEntry);
+
+            //request name input if in top 10
+            if (playerIndex >= 0 && playerIndex < 10) {
+                const playerName = prompt('You made the high scores! Enter your name:', 'Anonymous');
+                highScores[playerIndex].name = playerName || 'Anonymous';
+            }
 
             //contentArea.innerHTML = `<h2>Your Score: ${playerScore} (Level ${playerLevel})</h2>`;
             for (let i = 0; i < highScores.length; i++) {
@@ -171,12 +173,6 @@ export default class Game {
                 table.appendChild(entryRow);
             }
 
-            //request name input if in top 10
-            if (playerIndex >= 0 && playerIndex < 10) {
-                const playerName = prompt('You made the high scores! Enter your name:', 'Anonymous');
-                highScores[playerIndex].name = playerName || 'Anonymous';
-            }
-
             //keep top 10 - for saving back later
             highScores = highScores.slice(0, 10);
             this.storeHighScoreEntry(highScores[playerIndex]);
@@ -195,19 +191,13 @@ export default class Game {
     }
 
     storeHighScoreEntry(newEntry) {
-        console.log('Storing new high score entry:', newEntry);
-        
         fetch('save-score.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newEntry)
         })
         .then(response => response.json())
-        .then(data => {
-            console.log('Score saved:', data);
-        })
+        //.then(data => { console.log('Score saved:', data); })
         .catch(error => {
             console.error('Error saving score:', error);
         });
