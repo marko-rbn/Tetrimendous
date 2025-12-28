@@ -8,7 +8,6 @@ export default class Game {
     interval = 500; //ms
     gridWidth;
     gridHeight;
-    #msgElement = null;
     #modalElement = null;
 
     //grid keeps the score and level
@@ -18,7 +17,6 @@ export default class Game {
         this.gridHeight = gridHeight;
 
         // set up element references
-        this.#msgElement = document.getElementById('game-msg');
         this.#modalElement = document.getElementById('modal-score');
 
         // initialize grid
@@ -32,7 +30,6 @@ export default class Game {
         //listen for game over event
         document.addEventListener('game-over', (event) => {
             clearInterval(this.#dropTimer);
-            this.#msgElement.innerText = 'Game Over!';
             this.popModalWithScores();
         });
 
@@ -45,7 +42,6 @@ export default class Game {
     }
 
     reset() {
-        this.#msgElement.innerText = '';
         this.#grid.reset();
         this.#shape.addNewShape();
         this.startAutoDrop();
