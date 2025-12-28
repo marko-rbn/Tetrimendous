@@ -130,18 +130,18 @@ export default class Grid {
             this.togglePause(false, true); //internal call to avoid visual pause effect
         }, 300); //match CSS animation duration    
         
-        updateScore(y)
+        this.updateScore(y)
     }
 
     updateScore(clearedRowY) {
         //update score based on height of cleared row
         let heightFactor = 1 - (clearedRowY / this.height);
         if (heightFactor < 0.2) {
-            this.currentScore += 100 + (10 * this.level); //bottom 20%
+            this.currentScore += 100 + (10 * this.currentLevel); //bottom 20%
         } else if (heightFactor < 0.5) {
-            this.currentScore += 75 + (10 * this.level); //middle 30%
+            this.currentScore += 75 + (10 * this.currentLevel); //middle 30%
         } else {
-            this.currentScore += 50 + (10 * this.level); //top 50%
+            this.currentScore += 50 + (10 * this.currentLevel); //top 50%
         }
 
         if (this.#scoreElement) {
