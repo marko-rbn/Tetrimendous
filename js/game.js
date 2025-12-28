@@ -133,7 +133,7 @@ export default class Game {
             console.log('Loaded high scores:', highScores);
             //insert player's score
             const playerEntry = {
-                name: 'Name-input-placeholder',
+                name: 'Current Player',
                 score: playerScore,
                 level: playerLevel,
                 date: new Date().toISOString().split('T')[0]
@@ -141,8 +141,8 @@ export default class Game {
             highScores.push(playerEntry);
             //sort descending by score
             highScores.sort((a, b) => b.score - a.score);
-            //keep top 10 - for saving back later
-            //highScores = highScores.slice(0, 10);
+            //capture index of playerEntry
+            let playerIndex = highScores.findIndex(entry => entry === playerEntry);
 
             //contentArea.innerHTML = `<h2>Your Score: ${playerScore} (Level ${playerLevel})</h2>`;
             for (let i = 0; i < highScores.length; i++) {
@@ -170,6 +170,16 @@ export default class Game {
 
                 table.appendChild(entryRow);
             }
+
+            //request name input if in top 10
+            if (playerIndex >= 0 && playerIndex < 10) {
+                const playerName = prompt('You made the high scores! Enter your name:', 'Anonymous');
+                highScores[playerIndex].name = playerName || 'Anonymous';
+            }
+
+            //keep top 10 - for saving back later
+            highScores = highScores.slice(0, 10);
+            this.storeHighScoreEntry(highScores[playerIndex]);
         });
 
 
@@ -182,8 +192,24 @@ export default class Game {
             this.reset();
         });
         contentArea.appendChild(restartButton);
+    }
 
-        //TODO: request name input if in top 10
-        //TODO: save back to local storage
+    storeHighScoreEntry(newEntry) {
+        console.log('Storing new high score entry:', newEntry);
+        
+        fetch('save-score.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newEntry)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Score saved:', data);
+        })
+        .catch(error => {
+            console.error('Error saving score:', error);
+        });
     }
 }

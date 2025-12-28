@@ -134,7 +134,6 @@ export default class Grid {
     }
 
     updateScore(clearedRowY) {
-        // TODO: incorporate level multipliers
         //update score based on height of cleared row
         let heightFactor = 1 - (clearedRowY / this.height);
         if (heightFactor < 0.2) {
