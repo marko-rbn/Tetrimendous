@@ -17,9 +17,6 @@ export class Shape {
         [[0,0], [-1,0], [0,1], [1,1]]    //Z
     ];
 
-    interval = 500; //ms - time between automatic downward moves, can be adjusted from outside
-    #timer = null;
-
     //set at to random values when new shape is created
     originX = 0;
     originY = 0;
@@ -45,22 +42,11 @@ export class Shape {
         //check for game over condition here
         if (this.doesOverlap(this.shapeBlocks)) {
             this.#grid.togglePause(true, false, 'ended');
-            clearInterval(this.#timer);
             return;
         }
 
         //draw initial shape
         this.redraw([], this.shapeBlocks);
-
-        //TODO: probably belongs in game controller module, not here
-
-        //start automatic downward movement 
-        if (this.#timer) {
-            clearInterval(this.#timer);
-        }
-        this.#timer = setInterval(() => {
-            this.move(Direction.Down, false);
-        }, this.interval);
     }
 
     move(direction, allTheWay = true) {
@@ -68,18 +54,11 @@ export class Shape {
         
         let newX, newY;
         switch (direction) {
-            //TODO: combine left/right into one case with conditional
+            //left/right combined to avoid code repetition
             case Direction.Left:
-                newX = this.originX - 1;
-                if (this.doesOverlap(this.shapeBlocks, newX, this.originY)) {
-                    return;
-                }
-                this.redraw(this.shapeBlocks, this.shapeBlocks, newX, this.originY);
-                this.originX = newX;
-                break;
-
             case Direction.Right:
-                newX = this.originX + 1;
+                newX = this.originX;
+                newX = (direction == Direction.Left) ? newX - 1 : newX + 1;
                 if (this.doesOverlap(this.shapeBlocks, newX, this.originY)) {
                     return;
                 }
