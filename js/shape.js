@@ -27,10 +27,6 @@ export class Shape {
     #preventRotation = false;
     shapeBlocks = [];  //one of #shapeTypes
 
-    //TODO:
-    // array of block relative coordinates (4 items since each shape is made of 4 blocks): blocks[4] = [{x:0, y:0}, ...];
-    // rotation logic (90 deg, check for collisions): rotate()
-
     constructor(gridInstance) {
         this.#grid = gridInstance;
     }
@@ -48,13 +44,15 @@ export class Shape {
 
         //check for game over condition here
         if (this.doesOverlap(this.shapeBlocks)) {
-            alert('Game Over!');
+            this.#grid.togglePause(true, false, 'ended');
             clearInterval(this.#timer);
             return;
         }
 
         //draw initial shape
         this.redraw([], this.shapeBlocks);
+
+        //TODO: probably belongs in game controller module, not here
 
         //start automatic downward movement 
         if (this.#timer) {
@@ -65,10 +63,12 @@ export class Shape {
         }, this.interval);
     }
 
-    //TODO: redo for actual shapes, not just single block
     move(direction, allTheWay = true) {
+        if (this.#grid.paused) return;
+        
         let newX, newY;
         switch (direction) {
+            //TODO: combine left/right into one case with conditional
             case Direction.Left:
                 newX = this.originX - 1;
                 if (this.doesOverlap(this.shapeBlocks, newX, this.originY)) {
@@ -79,7 +79,7 @@ export class Shape {
                 break;
 
             case Direction.Right:
-                newX = this.originX + 1;  //NOTE: the only difference here compared to Left
+                newX = this.originX + 1;
                 if (this.doesOverlap(this.shapeBlocks, newX, this.originY)) {
                     return;
                 }
@@ -106,10 +106,7 @@ export class Shape {
                     this.originY = newY;
                     this.#grid.lockShape(this);
                     this.addNewShape();
-                    return;
-                    //this.#grid.colorBlock(this.originX, this.originY, this.color);
-                    //this.#grid.lockShape(this);
-                    //this.addNewShape();               
+                    return;             
                 }
 
                 this.redraw(this.shapeBlocks, this.shapeBlocks, this.originX, newY);
@@ -120,9 +117,7 @@ export class Shape {
     }
 
     rotate() {
-        if (this.#preventRotation) {
-            return;
-        }
+        if (this.#preventRotation || this.#grid.paused) return;
 
         //rotate shape blocks 90 degrees right
         const newShapeBlocks = this.shapeBlocks.map( ([x, y]) => {

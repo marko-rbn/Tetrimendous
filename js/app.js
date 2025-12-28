@@ -31,5 +31,8 @@ document.addEventListener('keydown', (event) => {
             shape.rotate();
             break;
 
+        case 'p':
+            grid.togglePause();
+            break;
     }
 });

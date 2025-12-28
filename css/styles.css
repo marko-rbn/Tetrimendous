@@ -13,16 +13,56 @@ h1 {
 }
 
 table {
+    position: relative;
     border: 2px solid #0b2263;
     border-collapse: collapse;
     margin: 20px auto;
 }
 
+table::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30pt;
+    font-weight: bold;
+    color: #000;
+    opacity: 0.6;
+    background-color: rgb(124, 62, 62);
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+    height: 100%;
+    line-height: 200px;
+    z-index: 1;
+}
+table.paused::before {
+    content: 'PAUSED';
+}
+table.ended::before {
+    content: 'GAME OVER';
+}
+
+tr td::before {
+    background-color: #ffea00;
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 0;
+    transition: height 0.3s ease;
+}
+tr.filled-row td::before {
+    height: 100%;
+    transition: height 0.3s ease;
+}
+
 td {
+    position: relative;
     border: 1px solid #e1e1ee;
     padding: 0;
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
 }
 
 /* block colors */
